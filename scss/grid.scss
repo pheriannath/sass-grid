@@ -6,10 +6,10 @@ $numColumns : 12; 				//set the number of columns we want in our grid (default: 
 $columnName : col;				//set the name of our grid class (default: col)
 $fixedWidth : true;			  //use a fixed width for our container (default: true)
 $fixedWidthValue : 1144; 	//set the value of the fixed width in px (default: 1144)
-$gutterWidth : 20;				//set the size of our gutters (default: 10)
-$columnPadding: 10;				//set padding on columns
+$gutterWidth : 20;				//set the size of our gutters (default: 20px)
+$columnPadding: 10;				//set padding on columns (default: 20px)
 $rowSpacing : 20;					//set the amount of space between rows (default: 20)
-$unit : em;								//change what unit of measure we want to use (default: px)
+$unit : px;								//change what unit of measure we want to use (default: px)
 $visibleGrid : true;			//display rows/columns for demo/mock purposes (default: false)
 
 //options for converting to relative units
@@ -42,10 +42,6 @@ $widthValue : 0;
 	$widthValue : 100;
 	$colWidth : 100 / $numColumns;
 	$unit: '%';
-}
-
-@if $unit == em {
-	body { font-size: 100%; }
 }
 
 //change box model for grid elements

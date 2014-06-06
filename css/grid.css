@@ -45,9 +45,6 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block; }
 
-body {
-  font-size: 100%; }
-
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -55,14 +52,14 @@ body {
 
 .container {
   margin: 0 auto;
-  width: 71.5em; }
+  width: 1144px; }
   .container:before, .container:after {
     display: block;
     content: "";
     clear: both; }
 
 .row {
-  margin-bottom: 1.25em; }
+  margin-bottom: 20px; }
   .row:before, .row:after {
     display: block;
     content: "";
@@ -70,43 +67,43 @@ body {
 
 [class^=col-] {
   float: left;
-  padding: 0.625em;
+  padding: 10px;
   background: #eee; }
   [class^=col-] span {
     font-family: monospace; }
 
 .col-1 {
-  width: 5.95833em; }
+  width: 95.33333px; }
 
 .col-2 {
-  width: 11.91667em; }
+  width: 190.66667px; }
 
 .col-3 {
-  width: 17.875em; }
+  width: 286px; }
 
 .col-4 {
-  width: 23.83333em; }
+  width: 381.33333px; }
 
 .col-5 {
-  width: 29.79167em; }
+  width: 476.66667px; }
 
 .col-6 {
-  width: 35.75em; }
+  width: 572px; }
 
 .col-7 {
-  width: 41.70833em; }
+  width: 667.33333px; }
 
 .col-8 {
-  width: 47.66667em; }
+  width: 762.66667px; }
 
 .col-9 {
-  width: 53.625em; }
+  width: 858px; }
 
 .col-10 {
-  width: 59.58333em; }
+  width: 953.33333px; }
 
 .col-11 {
-  width: 65.54167em; }
+  width: 1048.66667px; }
 
 .col-12 {
-  width: 71.5em; }
+  width: 1144px; }
