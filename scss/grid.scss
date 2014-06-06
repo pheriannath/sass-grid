@@ -9,6 +9,7 @@ $fixedWidthValue : 1144 !default; 	//set the value of the fixed width
 $gutterWidth : 10 !default;					//set the size of our gutters
 $rowSpacing : 10 !default;					//set the amount of space between rows
 $unit : px !default;								//change what unit of measure we want to use
+$visibleGrid : true;								//display rows/columns for demo/mock purposes
 
 //necessary variables for initialization
 $colWidth : 0;
@@ -51,9 +52,6 @@ $widthValue : 0;
 	&:before, &:after {
 		@include clearfix();
 	}
-
-	//debug
-	background: #ccc; 
 }
 
 //rows
@@ -64,6 +62,10 @@ $widthValue : 0;
 	&:before, &:after {
 		@include clearfix();
 	}
+
+	@if $visibleGrid {
+		background: #ccc;
+	}
 }
 
 
@@ -72,8 +74,9 @@ $widthValue : 0;
 	float: left;
 	padding: $gutterWidth + $unit;
 
-	//debug
-	background: #eee;
+	@if $visibleGrid {
+		background: #eee;
+	}
 }
 
 @for $i from 1 through $numColumns {
