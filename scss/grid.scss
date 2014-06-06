@@ -1,0 +1,83 @@
+//Yet another SASS grid system
+@import "compass/reset";
+
+//Options
+$numColumns : 12 !default; 					//set the number of columns we want in our grid
+$columnName : column !default;			//set the name of our grid class
+$fixedWidth : true !default;				//use a fixed width for our container
+$fixedWidthValue : 1144 !default; 	//set the value of the fixed width
+$gutterWidth : 10 !default;					//set the size of our gutters
+$rowSpacing : 10 !default;					//set the amount of space between rows
+$unit : px !default;								//change what unit of measure we want to use
+
+//necessary variables for initialization
+$colWidth : 0;
+$widthValue : 0;
+
+//logic for generating appropriate column sizes
+@if $fixedWidth {
+	$colWidth : $fixedWidthValue / $numColumns;
+} 
+
+//make our container flexible if not using a fixed width
+@if $fixedWidthValue {
+	$widthValue : $fixedWidthValue;
+} @else {
+	$widthValue : 100%;
+}
+
+//mixins
+@mixin clearfix () {
+	display: table;
+  line-height: 0;
+  content: "";
+}
+
+//change box model for grid elements
+* { 
+	-webkit-box-sizing: border-box; 
+	   -moz-box-sizing: border-box; 
+	        box-sizing: border-box; 
+}
+
+//containers
+.container {
+	width: $widthValue + $unit;
+
+	@if $fixedWidth {
+		margin: 0 auto;
+	}
+
+	&:before, &:after {
+		@include clearfix();
+	}
+
+	//debug
+	background: #ccc; 
+}
+
+//rows
+.row {
+	width: $widthValue + $unit;
+	margin-bottom: $rowSpacing + $unit;
+
+	&:before, &:after {
+		@include clearfix();
+	}
+}
+
+
+//columns
+[class^=#{$columnName}-] {
+	float: left;
+	padding: $gutterWidth + $unit;
+
+	//debug
+	background: #eee;
+}
+
+@for $i from 1 through $numColumns {
+	.#{$columnName}-#{$i} {
+		width: ($colWidth * $i) + $unit;
+	}
+}
