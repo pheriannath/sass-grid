@@ -2,36 +2,50 @@
 @import "compass/reset";
 
 //Options
-$numColumns : 12 !default; 					//set the number of columns we want in our grid
-$columnName : column !default;			//set the name of our grid class
-$fixedWidth : true !default;				//use a fixed width for our container
-$fixedWidthValue : 1144 !default; 	//set the value of the fixed width
-$gutterWidth : 10 !default;					//set the size of our gutters
-$rowSpacing : 10 !default;					//set the amount of space between rows
-$unit : px !default;								//change what unit of measure we want to use
-$visibleGrid : true;								//display rows/columns for demo/mock purposes
+$numColumns : 12; 				//set the number of columns we want in our grid (default: 12)
+$columnName : col;				//set the name of our grid class (default: col)
+$fixedWidth : true;			  //use a fixed width for our container (default: true)
+$fixedWidthValue : 1144; 	//set the value of the fixed width in px (default: 1144)
+$gutterWidth : 20;				//set the size of our gutters (default: 10)
+$columnPadding: 10;				//set padding on columns
+$rowSpacing : 20;					//set the amount of space between rows (default: 20)
+$unit : em;								//change what unit of measure we want to use (default: px)
+$visibleGrid : true;			//display rows/columns for demo/mock purposes (default: false)
+
+//options for converting to relative units
+$baseFontSize : 16;				//default: 16
 
 //necessary variables for initialization
 $colWidth : 0;
 $widthValue : 0;
 
-//logic for generating appropriate column sizes
-@if $fixedWidth {
-	$colWidth : $fixedWidthValue / $numColumns;
-} 
-
-//make our container flexible if not using a fixed width
-@if $fixedWidthValue {
-	$widthValue : $fixedWidthValue;
-} @else {
-	$widthValue : 100%;
-}
-
 //mixins
 @mixin clearfix () {
-	display: table;
-  line-height: 0;
+	display: block;
   content: "";
+  clear: both;
+}
+
+@function emCalc ($px, $base : $baseFontSize) {
+	@return ($px / $base) * 1;
+}
+
+//do some unit conversion based on selected options
+@if $fixedWidth {
+	@if $unit == em {
+		$widthValue : emCalc($fixedWidthValue);	
+	} @else {
+		$widthValue : $fixedWidthValue;
+	}
+	$colWidth : $widthValue / $numColumns;
+} @else {
+	$widthValue : 100;
+	$colWidth : 100 / $numColumns;
+	$unit: '%';
+}
+
+@if $unit == em {
+	body { font-size: 100%; }
 }
 
 //change box model for grid elements
@@ -43,10 +57,9 @@ $widthValue : 0;
 
 //containers
 .container {
-	width: $widthValue + $unit;
-
 	@if $fixedWidth {
 		margin: 0 auto;
+		width: #{$widthValue + $unit};
 	}
 
 	&:before, &:after {
@@ -56,15 +69,15 @@ $widthValue : 0;
 
 //rows
 .row {
-	width: $widthValue + $unit;
-	margin-bottom: $rowSpacing + $unit;
+	@if $unit == px {
+		margin-bottom: #{$rowSpacing + $unit};
+	}
+	@if $unit == em {
+		margin-bottom: #{emCalc($rowSpacing) + $unit};
+	}
 
 	&:before, &:after {
 		@include clearfix();
-	}
-
-	@if $visibleGrid {
-		background: #ccc;
 	}
 }
 
@@ -72,15 +85,21 @@ $widthValue : 0;
 //columns
 [class^=#{$columnName}-] {
 	float: left;
-	padding: $gutterWidth + $unit;
+	@if $unit == px {
+		padding: #{$columnPadding + $unit};
+	}
+	@if $unit == em {
+		padding: #{emCalc($columnPadding) + $unit};
+	}
 
 	@if $visibleGrid {
 		background: #eee;
+		span { font-family: monospace; }
 	}
 }
 
 @for $i from 1 through $numColumns {
 	.#{$columnName}-#{$i} {
-		width: ($colWidth * $i) + $unit;
+		width: #{($colWidth * $i) + $unit};
 	}
 }
